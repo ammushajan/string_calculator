@@ -24,16 +24,30 @@ class StringCalculator {
   /// It supports both default delimiters (comma and newline) and custom delimiters.
   /// Returns a map with 'delimiter' and 'input' keys.
   Map<String, String> getDelimitersAndNumbers(String input) {
-    String delimiter = ',|\n';
+    String delimiterPattern = ',|\n';
     // If the input starts with a custom delimiter, extract it.
     if (input.startsWith('//')) {
-      final parts = input.split('\n');
-      // Get delimiter from "//;\n", considering ; as a custom delimiter
-      delimiter = RegExp.escape(parts[0].substring(2));
+      // Extracts the part between // and the first \n
+      final delimiterSectionEnd = input.indexOf('\n');
+      final delimiterSection = input.substring(2, delimiterSectionEnd);
       // Use the rest of the string as input
-      input = parts[1];
+      input = input.substring(delimiterSectionEnd + 1);
+
+      // This regex matches each custom delimiter inside [ and ].
+      final delimiterMatches = RegExp(
+        r'\[(.*?)\]',
+      ).allMatches(delimiterSection);
+      if (delimiterMatches.isNotEmpty) {
+        // Join all delimiters into a regex pattern
+        delimiterPattern = delimiterMatches
+            .map((m) => RegExp.escape(m.group(1)!))
+            .join('|');
+      } else {
+        // Single delimiter: //;\n
+        delimiterPattern = RegExp.escape(delimiterSection);
+      }
     }
-    return {'delimiter': delimiter, 'input': input};
+    return {'delimiter': delimiterPattern, 'input': input};
   }
 
   ///[_checkForNegativeNumbers] checks for negative numbers in the list.
