@@ -3,7 +3,9 @@ class StringCalculator {
   int add(String input) {
     // If the input is empty, return 0.
     if (input.isEmpty) return 0;
-    // Parse the string to int for single number strings.
-    return int.parse(input);
+    // Split the string by comma
+    List<String> numberStrings = input.split(',');
+    // If the input contains multiple numbers, return the sum of those numbers.
+    return numberStrings.map(int.parse).reduce((a, b) => a + b);
   }
 }
