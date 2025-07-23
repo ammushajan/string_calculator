@@ -26,5 +26,10 @@ void main() {
       expect(calculator.add('4,5\n6'), 15);
       expect(calculator.add('4\n5\n6'), 15);
     });
+    test('should support a custom delimiter', () {
+      expect(calculator.add('//;\n1;2'), 3);
+      expect(calculator.add('//|\n1|2|3'), 6);
+      expect(calculator.add('//#\n2#3#4#5'), 14);
+    });
   });
 }
