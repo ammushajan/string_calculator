@@ -14,9 +14,15 @@ class StringCalculator {
       input = parts[1];
     }
 
-    // Split the string by comma or newline
-    List<String> numberStrings = input.split(RegExp(delimiter));
-    // If the input contains multiple numbers, return the sum of those numbers.
-    return numberStrings.map(int.parse).reduce((a, b) => a + b);
+    // Split the string by the delimiter.
+    List<String> numberList = input.split(RegExp(delimiter));
+    // Get negative numbers
+    final negatives = numberList.where((n) => int.parse(n) < 0).toList();
+    // If there are negative numbers, throw an exception listing them.
+    if (negatives.isNotEmpty) {
+      throw Exception('negative numbers not allowed ${negatives.join(',')}');
+    }
+    // Convert the string numbers to integers and return their sum.
+    return numberList.map(int.parse).reduce((a, b) => a + b);
   }
 }
