@@ -35,6 +35,10 @@ void main() {
       expect(calculator.add('//[***]\n1***2***3'), 6);
       expect(calculator.add('//[@@@]\n1@@@2@@@3@@@4'), 10);
     });
+    test('should support a custom delimiter of multiple character', () {
+      expect(calculator.add('//[*][%]\n1*2%3'), 6);
+      expect(calculator.add('//[**][%%]\n1**2%%5'), 8);
+    });
     test('should throw an exception listing all negative numbers', () {
       expect(
         () => calculator.add('1,-2,3,-4'),
