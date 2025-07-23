@@ -3,8 +3,8 @@ class StringCalculator {
   int add(String input) {
     // If the input is empty, return 0.
     if (input.isEmpty) return 0;
-    // Split the string by comma
-    List<String> numberStrings = input.split(',');
+    // Split the string by comma or newline
+    List<String> numberStrings = input.split(RegExp(r'[,\n]'));
     // If the input contains multiple numbers, return the sum of those numbers.
     return numberStrings.map(int.parse).reduce((a, b) => a + b);
   }
