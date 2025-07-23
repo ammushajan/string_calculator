@@ -31,5 +31,16 @@ void main() {
       expect(calculator.add('//|\n1|2|3'), 6);
       expect(calculator.add('//#\n2#3#4#5'), 14);
     });
+    test('should throw an exception listing all negative numbers', () {
+      expect(
+        () => calculator.add('1,-2,3,-4'),
+        throwsA(
+          predicate(
+            (e) =>
+                e.toString() == 'Exception: negative numbers not allowed -2,-4',
+          ),
+        ),
+      );
+    });
   });
 }
