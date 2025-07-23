@@ -29,7 +29,7 @@ void main() {
     test('should support a custom delimiter', () {
       expect(calculator.add('//;\n1;2'), 3);
       expect(calculator.add('//|\n1|2|3'), 6);
-      expect(calculator.add('//#\n2#3#4#5'), 14);
+      expect(calculator.add('//##\n2##3##4##5'), 14);
     });
     test('should throw an exception listing all negative numbers', () {
       expect(
@@ -41,6 +41,10 @@ void main() {
           ),
         ),
       );
+    });
+    test('should ignore numbers greather than 1000', () {
+      expect(calculator.add('2,1001'), 2);
+      expect(calculator.add('5,10000'), 5);
     });
   });
 }
