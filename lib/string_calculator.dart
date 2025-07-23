@@ -8,7 +8,12 @@ class StringCalculator {
     String delimiter = delimitersAndNumbers['delimiter']!;
     input = delimitersAndNumbers['input']!;
     // Split the string by the delimiter.
-    List<String> numberList = input.split(RegExp(delimiter));
+    List<String> numberList =
+        input
+            .split(RegExp(delimiter))
+            // Filter out numbers greater than 1000.
+            .where((n) => int.parse(n) <= 1000)
+            .toList();
     // Check for negative numbers and throw an exception if any are found.
     _checkForNegativeNumbers(numberList);
     // Convert the string numbers to integers and return their sum.
