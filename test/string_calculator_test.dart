@@ -21,5 +21,10 @@ void main() {
       expect(calculator.add("1,2,5,6,7"), 21);
       expect(calculator.add("10,2,4"), 16);
     });
+    test('should handle new lines between numbers', () {
+      expect(calculator.add('1\n2,3'), 6);
+      expect(calculator.add('4,5\n6'), 15);
+      expect(calculator.add('4\n5\n6'), 15);
+    });
   });
 }
